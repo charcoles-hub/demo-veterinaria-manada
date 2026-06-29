@@ -1,0 +1,464 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const HERO = "https://images.unsplash.com/photo-1770836037793-95bdbf190f71";
+const TEAM = "https://images.unsplash.com/photo-1588950538967-ca7f8599c669";
+const img = (b: string, w: number, q = 72) => `${b}?auto=format&fit=crop&w=${w}&q=${q}`;
+
+const servicios = [
+  { n: "01", name: "Consulta y diagnóstico", meta: "perros · gatos · exóticos", desc: "Revisión completa sin prisas. Salimos con un diagnóstico claro y un plan, no con más dudas." },
+  { n: "02", name: "Vacunas y desparasitación", meta: "calendario a medida", desc: "Te avisamos nosotros cuando toca. Tú solo tienes que venir." },
+  { n: "03", name: "Cirugía y quirófano propio", meta: "esterilizaciones · tejidos blandos", desc: "Quirófano equipado y monitorización constante. Lo que se puede resolver aquí, se queda aquí." },
+  { n: "04", name: "Análisis, ecografía y rayos X", meta: "resultados el mismo día", desc: "Laboratorio e imagen en casa, sin esperas de días ni viajes a otro centro." },
+  { n: "05", name: "Dental y limpieza bucal", meta: "con anestesia segura", desc: "Boca sana, animal sano. Limpiezas y extracciones con el riesgo medido." },
+  { n: "06", name: "Peluquería y baño", meta: "con cita, sin estrés", desc: "Manos suaves y tijera tranquila, también para los que se ponen nerviosos." },
+];
+
+const puntos = [
+  "Te atendemos a ti tanto como a tu animal: te explicamos el diagnóstico en cristiano.",
+  "Presupuesto cerrado por escrito antes de cualquier prueba o cirugía.",
+  "Quirófano y laboratorio propios: no derivamos lo que podemos resolver aquí.",
+  "Plan de salud con vacunas, revisiones y descuentos desde 12 €/mes.",
+];
+
+const opiniones = [
+  { q: "Mi gato llegó fatal un domingo a las tres de la madrugada y nos atendieron como si fuera horario de oficina. Le salvaron la vida.", a: "Laura B.", c: "con Mishi" },
+  { q: "Te explican todo, te dan el precio antes y no te cuelan pruebas que no hacen falta. Voy con los dos perros desde hace años.", a: "Sergi T.", c: "con Olho y Nala" },
+  { q: "Trato de diez con mi conejo, que no en todas las clínicas saben llevar a los exóticos. Aquí sí.", a: "Marta R.", c: "con Trufa" },
+];
+---
+
+<Layout>
+  <a class="skip" href="#cita">Saltar a pedir cita</a>
+
+  <header class="nav" data-nav>
+    <div class="wrap nav__row">
+      <a class="brand" href="#top" aria-label="Manada, inicio">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__word">Manada</span>
+      </a>
+      <nav class="nav__links" aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#equipo">Quiénes somos</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#urgencias" class="nav__urg">Urgencias 24 h</a>
+      </nav>
+      <a class="btn btn--solid nav__cta" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ░░ HERO ░░ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__panel">
+        <div class="hero__copy">
+          <p class="hero__eyebrow"><span class="dot" aria-hidden="true"></span> Clínica veterinaria · Esplugues de Llobregat</p>
+          <h1 id="hero-title" class="hero__title">Como en casa,<br />con quirófano.</h1>
+          <p class="hero__lede">Medicina, cirugía y urgencias 24 h para perros, gatos y los menos comunes. La consulta de barrio donde te explican qué le pasa a tu animal y cuánto cuesta, sin letra pequeña.</p>
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="#cita">Pedir cita</a>
+            <a class="btn btn--ghost" href="tel:+34930000000"><span class="dot dot--live" aria-hidden="true"></span> Urgencias 24 h</a>
+          </div>
+          <dl class="hero__facts">
+            <div><dt>Urgencias</dt><dd>24 h · 365 días</dd></div>
+            <div><dt>Tu manada</dt><dd>perros · gatos · exóticos</dd></div>
+            <div><dt>Valoración</dt><dd>4,9/5 · 240 familias</dd></div>
+          </dl>
+        </div>
+      </div>
+      <figure class="hero__media">
+        <img src={img(HERO, 1100, 74)}
+          srcset={`${img(HERO, 800, 72)} 800w, ${img(HERO, 1200, 74)} 1200w`}
+          sizes="(max-width: 900px) 100vw, 46vw"
+          alt="Un teckel atento sobre la mesa de exploración mientras el veterinario lo ausculta detrás, en luz cálida." fetchpriority="high" />
+      </figure>
+    </section>
+
+    <!-- ░░ MANIFIESTO ░░ -->
+    <section class="manifesto">
+      <div class="wrap" data-reveal>
+        <p class="manifesto__text">Para nosotros tu animal no es un número de ficha. Es de la manada. Por eso le dedicamos el tiempo que haga falta, te damos el <strong>presupuesto cerrado antes de empezar</strong> y te llamamos a los días para ver cómo sigue.</p>
+      </div>
+    </section>
+
+    <!-- ░░ SERVICIOS ░░ -->
+    <section class="serv" id="servicios" aria-labelledby="serv-h">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow">Servicios</p>
+          <h2 id="serv-h" class="sec-head__title">Una clínica completa,<br />no una sala de espera.</h2>
+        </header>
+
+        <a class="urg" id="urgencias" href="tel:+34930000000" data-reveal>
+          <div class="urg__pulse" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="urg__copy">
+            <p class="urg__kicker">Urgencias veterinarias</p>
+            <p class="urg__title">¿Una urgencia? Estamos despiertos.</p>
+            <p class="urg__sub">24 horas, 365 días. No esperes a mañana: llama y ven.</p>
+          </div>
+          <span class="urg__phone">93 000 00 00 <span aria-hidden="true">→</span></span>
+        </a>
+
+        <ul class="serv__grid">
+          {servicios.map((s) => (
+            <li class="ficha" data-reveal>
+              <div class="ficha__tab"><span class="ficha__n">{s.n}</span><span class="ficha__meta">{s.meta}</span></div>
+              <h3 class="ficha__name">{s.name}</h3>
+              <p class="ficha__desc">{s.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ░░ EQUIPO ░░ -->
+    <section class="team" id="equipo" aria-labelledby="team-h">
+      <div class="wrap team__grid">
+        <div class="team__body" data-reveal>
+          <p class="eyebrow">Quiénes somos</p>
+          <h2 id="team-h" class="team__title">Gente que se aprende<br />el nombre de tu perro.</h2>
+          <p class="team__lede">Somos un equipo pequeño de Esplugues que prefiere atender bien a pocos que regular a muchos. Aquí repites con la misma veterinaria y ella se acuerda de tu animal.</p>
+          <ul class="team__points">
+            {puntos.map((p) => (<li><span class="paw" aria-hidden="true"></span> <span set:html={p.replace(/(presupuesto cerrado por escrito|Quirófano y laboratorio propios|en cristiano|12 €\/mes)/i, '<strong>$1</strong>')}></span></li>))}
+          </ul>
+        </div>
+        <figure class="team__media" data-reveal>
+          <img src={img(TEAM, 900, 74)}
+            srcset={`${img(TEAM, 600, 72)} 600w, ${img(TEAM, 1000, 74)} 1000w`}
+            sizes="(max-width: 860px) 90vw, 40vw"
+            alt="Una veterinaria de Manada sostiene en brazos a un cachorro dorado, los dos tranquilos." loading="lazy" />
+          <figcaption class="team__cap"><span class="dot" aria-hidden="true"></span> Dra. Laia Ferrer · col. nº 2207</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ░░ OPINIONES ░░ -->
+    <section class="revs" id="opiniones" aria-labelledby="revs-h">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow">Opiniones</p>
+          <h2 id="revs-h" class="sec-head__title">Lo que cuentan sus familias.</h2>
+        </header>
+        <div class="revs__grid">
+          {opiniones.map((o) => (
+            <figure class="rev" data-reveal>
+              <blockquote class="rev__q">{o.q}</blockquote>
+              <figcaption class="rev__by"><span class="rev__a">{o.a}</span><span class="rev__c">{o.c}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ CITA ░░ -->
+    <section class="cita" id="cita" aria-labelledby="cita-h">
+      <div class="wrap cita__grid">
+        <div class="cita__intro" data-reveal>
+          <p class="eyebrow eyebrow--light">Pedir cita</p>
+          <h2 id="cita-h" class="cita__title">Cuéntanos qué le pasa.</h2>
+          <p class="cita__lede">Déjanos tus datos y te llamamos hoy mismo para darte hora. Si es una urgencia, no escribas: <a href="tel:+34930000000">llámanos al 93 000 00 00</a>.</p>
+          <ul class="cita__info">
+            <li><span>Dónde</span> Carrer de Laureà Miró 88, Esplugues de Llobregat</li>
+            <li><span>Horario</span> Lun–Vie 9–21 h · Sáb 10–14 h</li>
+            <li><span>Urgencias</span> 24 h, todos los días del año</li>
+            <li><span>Teléfono</span> <a href="tel:+34930000000">93 000 00 00</a></li>
+          </ul>
+        </div>
+
+        <form class="form" data-reveal novalidate>
+          <div class="row">
+            <div class="field">
+              <label for="nombre">Tu nombre</label>
+              <input id="nombre" name="nombre" type="text" autocomplete="name" placeholder="Cómo te llamas" required />
+            </div>
+            <div class="field">
+              <label for="tel">Teléfono</label>
+              <input id="tel" name="tel" type="tel" autocomplete="tel" placeholder="Para llamarte" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="animal">Tu animal</label>
+            <select id="animal" name="animal">
+              <option>Perro</option>
+              <option>Gato</option>
+              <option>Conejo u otro exótico</option>
+              <option>Tengo varios</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="motivo">¿Qué necesitáis?</label>
+            <select id="motivo" name="motivo">
+              <option>Una revisión</option>
+              <option>Vacunas</option>
+              <option>Cirugía o esterilización</option>
+              <option>Está malito y no sé qué tiene</option>
+              <option>Peluquería</option>
+            </select>
+          </div>
+          <button class="btn btn--solid form__submit" type="submit">Pedir cita</button>
+          <p class="form__note" data-form-note>Te llamamos hoy mismo. Cuidamos tus datos como a un paciente.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__grid">
+      <div class="foot__brand">
+        <a class="brand brand--light" href="#top">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__word">Manada</span>
+        </a>
+        <p class="foot__tag">Clínica veterinaria de barrio en Esplugues de Llobregat. Como en casa, con quirófano.</p>
+      </div>
+      <nav class="foot__nav" aria-label="Pie">
+        <a href="#servicios">Servicios</a>
+        <a href="#equipo">Quiénes somos</a>
+        <a href="#urgencias">Urgencias 24 h</a>
+        <a href="#cita">Pedir cita</a>
+      </nav>
+      <div class="foot__contact">
+        <p>Carrer de Laureà Miró 88<br />08950 Esplugues de Llobregat</p>
+        <p><a href="tel:+34930000000">93 000 00 00</a><br /><a href="mailto:hola@manadavet.es">hola@manadavet.es</a></p>
+      </div>
+    </div>
+    <div class="wrap foot__legal">
+      <p>© 2026 Manada Clínica Veterinaria · Aviso legal · Privacidad</p>
+      <p class="foot__demo">Página de demostración — Manada es una clínica ficticia.</p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    (function () {
+      const root = document.documentElement;
+      const nav = document.querySelector("[data-nav]");
+      const onScroll = () => nav && nav.classList.toggle("is-stuck", window.scrollY > 24);
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduce && "IntersectionObserver" in window) {
+        root.classList.add("js-reveal");
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+        }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+        document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+      }
+
+      const form = document.querySelector(".form");
+      const note = document.querySelector("[data-form-note]");
+      form && form.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        note.textContent = "¡Cita solicitada! Te llamamos hoy mismo.";
+        note.classList.add("is-ok");
+        form.querySelector(".form__submit").textContent = "Enviado ✓";
+      });
+    })();
+  </script>
+
+  <style>
+    /* ===================== NAV ===================== */
+    .skip {
+      position: fixed; top: 0; left: 50%; transform: translate(-50%, -120%);
+      background: var(--espresso); color: var(--canvas);
+      padding: 0.7rem 1.2rem; border-radius: 0 0 8px 8px; z-index: var(--z-overlay);
+      transition: transform 0.2s var(--ease-out);
+    }
+    .skip:focus { transform: translate(-50%, 0); }
+
+    .nav { position: sticky; top: 0; z-index: var(--z-nav); transition: background 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out); }
+    .nav::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: linear-gradient(to bottom, color-mix(in oklch, var(--espresso) 62%, transparent), transparent);
+      transition: opacity 0.4s var(--ease-out);
+    }
+    .nav.is-stuck::before { opacity: 0; }
+    .nav__row { display: flex; align-items: center; gap: 2rem; padding-block: 1rem; }
+    .nav.is-stuck { background: color-mix(in oklch, var(--canvas) 90%, transparent); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+    .nav__links { display: flex; gap: 1.5rem; margin-inline: auto; font-size: var(--step--1); font-weight: 700; }
+    .nav__links a { color: var(--canvas); opacity: 0.95; position: relative; padding-block: 0.3rem; }
+    .nav.is-stuck .nav__links a { color: var(--ink); }
+    .nav__links a:not(.nav__urg)::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease-out); }
+    .nav__links a:hover::after, .nav__links a:focus-visible::after { transform: scaleX(1); }
+    .nav__urg { color: var(--amber) !important; opacity: 1 !important; }
+
+    .brand { display: inline-flex; align-items: center; gap: 0.55rem; color: var(--canvas); }
+    .nav.is-stuck .brand { color: var(--ink); }
+    .brand__word { font-family: var(--display); font-size: var(--step-1); }
+    .brand__mark {
+      width: 26px; height: 22px; flex: none; position: relative;
+      background:
+        radial-gradient(circle at 22% 38%, var(--amber) 18%, transparent 19%),
+        radial-gradient(circle at 50% 30%, var(--amber) 18%, transparent 19%),
+        radial-gradient(circle at 78% 38%, var(--amber) 18%, transparent 19%),
+        radial-gradient(circle at 50% 72%, var(--amber) 30%, transparent 31%);
+    }
+    .brand--light { color: var(--canvas); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.5rem;
+      border-radius: 999px; font-weight: 800; font-size: var(--step--1);
+      border: 1.5px solid transparent;
+      transition: transform 0.25s var(--ease-out), background 0.25s var(--ease-out), color 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
+      white-space: nowrap;
+    }
+    .btn--solid { background: var(--amber); color: var(--espresso); }
+    .btn--solid:hover { background: var(--amber-deep); color: var(--canvas); transform: translateY(-2px); }
+    .btn--ghost { color: var(--canvas); border-color: color-mix(in oklch, var(--canvas) 40%, transparent); }
+    .btn--ghost:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-2px); }
+    .nav__cta { padding-block: 0.6rem; }
+
+    .dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--amber); flex: none; }
+    .dot--live { background: #6ee06e; box-shadow: 0 0 0 0 color-mix(in oklch, #6ee06e 70%, transparent); animation: pulse 2s var(--ease-out) infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in oklch, #6ee06e 60%, transparent); } 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+    @media (prefers-reduced-motion: reduce) { .dot--live { animation: none; } }
+
+    @media (max-width: 820px) { .nav__links { display: none; } .nav__row { justify-content: space-between; gap: 1rem; } }
+
+    /* ===================== HERO ===================== */
+    .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; min-height: clamp(560px, 88vh, 860px); margin-top: -68px; }
+    .hero__panel { background: radial-gradient(120% 120% at 0% 0%, var(--espresso-2), var(--espresso) 60%); display: flex; align-items: center; padding: clamp(5.5rem, 10vh, 8rem) clamp(1.5rem, 5vw, 5rem) clamp(2.5rem, 6vh, 4rem); }
+    .hero__copy { color: var(--canvas); max-width: 36rem; margin-left: auto; }
+    .hero__eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: var(--step--1); color: color-mix(in oklch, var(--canvas) 86%, var(--amber)); margin-bottom: 1.3rem; }
+    .hero__title { font-size: var(--step-5); line-height: 1.02; }
+    .hero__lede { margin-top: 1.3rem; max-width: 40ch; font-size: var(--step-1); line-height: 1.55; color: color-mix(in oklch, var(--canvas) 88%, transparent); }
+    .hero__actions { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .hero__facts { margin-top: clamp(2.2rem, 5vh, 3.4rem); display: flex; flex-wrap: wrap; gap: clamp(1.4rem, 3.5vw, 3rem); border-top: 1px solid color-mix(in oklch, var(--canvas) 26%, transparent); padding-top: 1.4rem; }
+    .hero__facts dt { font-size: var(--step--1); opacity: 0.7; margin-bottom: 0.2rem; }
+    .hero__facts dd { font-family: var(--display); font-size: var(--step-1); }
+    .hero__media { position: relative; }
+    .hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; min-height: 0; margin-top: -68px; }
+      .hero__media { order: -1; height: 56vw; max-height: 460px; }
+      .hero__media img { position: static; }
+      .hero__panel { padding-top: 2.5rem; }
+      .hero__copy { margin-left: 0; }
+    }
+
+    /* ===================== MANIFIESTO ===================== */
+    .manifesto { padding-block: clamp(3.5rem, 9vh, 6rem); }
+    .manifesto__text { font-family: var(--display); font-size: var(--step-3); line-height: 1.22; max-width: 24ch; color: var(--ink); }
+    .manifesto__text strong { color: var(--amber-deep); }
+    @media (min-width: 760px) { .manifesto__text { max-width: 30ch; } }
+
+    /* ===================== SECTION HEAD ===================== */
+    .sec-head { max-width: 38ch; margin-bottom: clamp(2rem, 4.5vw, 3.2rem); }
+    .sec-head__title { font-size: var(--step-3); margin-top: 0.9rem; }
+
+    /* ===================== SERVICIOS ===================== */
+    .serv { padding-block: clamp(3.5rem, 9vh, 7rem); }
+
+    .urg {
+      display: flex; align-items: center; gap: clamp(1rem, 3vw, 2.2rem);
+      background: linear-gradient(100deg, var(--espresso), var(--espresso-2));
+      color: var(--canvas); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2.1rem) clamp(1.5rem, 3.5vw, 2.6rem);
+      margin-bottom: clamp(1.4rem, 3vw, 2rem); position: relative; overflow: hidden;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    }
+    .urg:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -24px var(--espresso); }
+    .urg__pulse { display: flex; gap: 0.35rem; flex: none; }
+    .urg__pulse span { width: 6px; height: 34px; background: var(--amber); border-radius: 3px; opacity: 0.5; animation: bars 1.2s var(--ease-out) infinite; }
+    .urg__pulse span:nth-child(2) { animation-delay: 0.2s; height: 24px; }
+    .urg__pulse span:nth-child(3) { animation-delay: 0.4s; height: 40px; }
+    @keyframes bars { 0%, 100% { transform: scaleY(0.5); opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .urg__pulse span { animation: none; opacity: 0.8; } }
+    .urg__copy { flex: 1; }
+    .urg__kicker { font-size: var(--step--1); font-weight: 700; color: var(--amber); letter-spacing: 0.02em; }
+    .urg__title { font-family: var(--display); font-size: var(--step-2); margin-top: 0.2rem; }
+    .urg__sub { color: color-mix(in oklch, var(--canvas) 78%, transparent); margin-top: 0.3rem; font-size: var(--step-0); }
+    .urg__phone { font-family: var(--display); font-size: var(--step-1); color: var(--amber); white-space: nowrap; flex: none; }
+    @media (max-width: 680px) { .urg { flex-wrap: wrap; } .urg__phone { font-size: var(--step-2); } }
+
+    .serv__grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: clamp(1rem, 2.2vw, 1.4rem); }
+    .ficha {
+      background: var(--canvas); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 1.5rem 1.5rem 1.7rem; display: flex; flex-direction: column; gap: 0.55rem;
+      position: relative; transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    }
+    .ficha::before { content: ""; position: absolute; top: -1px; left: 1.5rem; width: 2.2rem; height: 3px; background: var(--amber); border-radius: 0 0 3px 3px; }
+    .ficha:hover { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: 0 18px 40px -28px var(--espresso); }
+    .ficha__tab { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-top: 0.4rem; }
+    .ficha__n { font-family: var(--display); color: var(--amber-deep); font-size: var(--step-1); }
+    .ficha__meta { font-size: 0.78rem; font-weight: 700; color: var(--olive); letter-spacing: 0.01em; }
+    .ficha__name { font-size: var(--step-1); margin-top: 0.2rem; }
+    .ficha__desc { color: var(--muted); font-size: var(--step-0); }
+
+    /* ===================== EQUIPO ===================== */
+    .team { padding-block: clamp(4rem, 11vh, 8rem); background: var(--canvas-2); }
+    .team__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+    .team__title { font-size: var(--step-3); margin-top: 0.8rem; }
+    .team__lede { margin-top: 1.1rem; color: var(--muted); max-width: 46ch; font-size: var(--step-1); }
+    .team__points { list-style: none; padding: 0; margin-top: 1.8rem; display: grid; gap: 1rem; }
+    .team__points li { position: relative; padding-left: 2rem; line-height: 1.5; }
+    .team__points li strong { color: var(--espresso-2); font-weight: 700; }
+    .paw {
+      position: absolute; left: 0; top: 0.35em; width: 1.1rem; height: 1.1rem; flex: none;
+      background:
+        radial-gradient(circle at 24% 30%, var(--amber-deep) 30%, transparent 31%),
+        radial-gradient(circle at 50% 22%, var(--amber-deep) 30%, transparent 31%),
+        radial-gradient(circle at 76% 30%, var(--amber-deep) 30%, transparent 31%),
+        radial-gradient(circle at 50% 64%, var(--amber-deep) 42%, transparent 43%);
+    }
+    .team__media { position: relative; }
+    .team__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; border-radius: var(--radius); }
+    .team__cap { position: absolute; left: 1rem; bottom: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; background: color-mix(in oklch, var(--espresso) 88%, transparent); color: var(--canvas); padding: 0.5rem 0.85rem; border-radius: 999px; font-size: var(--step--1); font-weight: 600; backdrop-filter: blur(6px); }
+    @media (max-width: 860px) {
+      .team__grid { grid-template-columns: 1fr; }
+      .team__media { order: -1; }
+      .team__media img { aspect-ratio: 3 / 2; object-position: 50% 35%; }
+    }
+
+    /* ===================== OPINIONES ===================== */
+    .revs { padding-block: clamp(4rem, 11vh, 7.5rem); }
+    .revs__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: clamp(1.1rem, 2.5vw, 1.8rem); }
+    .rev { background: var(--canvas); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 3vw, 2.1rem); display: flex; flex-direction: column; gap: 1.4rem; }
+    .rev__q { font-size: var(--step-1); line-height: 1.5; }
+    .rev__q::before { content: "“"; font-family: var(--display); color: var(--amber-deep); margin-right: 0.1rem; }
+    .rev__by { display: flex; align-items: baseline; gap: 0.6rem; }
+    .rev__a { font-weight: 800; }
+    .rev__c { font-size: var(--step--1); color: var(--olive); font-weight: 700; }
+
+    /* ===================== CITA ===================== */
+    .cita { background: radial-gradient(110% 130% at 100% 0%, var(--espresso-2), var(--espresso) 58%); color: var(--canvas); padding-block: clamp(4rem, 11vh, 7.5rem); }
+    .cita__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+    .cita__title { font-size: var(--step-3); margin-top: 0.8rem; color: var(--canvas); }
+    .cita__lede { margin-top: 1.1rem; max-width: 44ch; color: color-mix(in oklch, var(--canvas) 84%, transparent); font-size: var(--step-1); }
+    .cita__lede a { color: var(--amber); font-weight: 700; }
+    .cita__info { list-style: none; padding: 0; margin-top: 2rem; display: grid; gap: 0.85rem; }
+    .cita__info li { display: grid; grid-template-columns: 6rem 1fr; gap: 1rem; padding-bottom: 0.85rem; border-bottom: 1px solid color-mix(in oklch, var(--canvas) 18%, transparent); }
+    .cita__info span { color: var(--amber); font-size: var(--step--1); font-weight: 700; }
+    .cita__info a:hover { color: var(--amber); }
+
+    .form { background: var(--canvas); color: var(--ink); padding: clamp(1.6rem, 3.5vw, 2.4rem); border-radius: var(--radius); display: grid; gap: 1rem; box-shadow: 0 26px 60px -30px #000; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field { display: grid; gap: 0.4rem; }
+    .field label { font-size: var(--step--1); font-weight: 700; color: var(--espresso-2); }
+    .field input, .field select { font: inherit; padding: 0.78rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--line-strong); background: var(--canvas); color: var(--ink); width: 100%; transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out); }
+    .field input::placeholder { color: var(--muted); }
+    .field input:focus, .field select:focus { outline: none; border-color: var(--amber-deep); box-shadow: 0 0 0 3px color-mix(in oklch, var(--amber) 30%, transparent); }
+    .form__submit { justify-self: start; margin-top: 0.3rem; }
+    .form__note { font-size: var(--step--1); color: var(--muted); }
+    .form__note.is-ok { color: var(--amber-deep); font-weight: 700; }
+    @media (max-width: 860px) { .cita__grid { grid-template-columns: 1fr; } }
+    @media (max-width: 460px) { .row { grid-template-columns: 1fr; } }
+
+    /* ===================== FOOTER ===================== */
+    .foot { background: var(--espresso); color: var(--canvas); padding-block: clamp(3rem, 7vh, 4.5rem) 2rem; }
+    .foot__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid color-mix(in oklch, var(--canvas) 16%, transparent); }
+    .foot__tag { margin-top: 1rem; max-width: 34ch; color: color-mix(in oklch, var(--canvas) 70%, transparent); font-size: var(--step--1); }
+    .foot__nav { display: grid; gap: 0.6rem; align-content: start; font-size: var(--step--1); font-weight: 600; }
+    .foot__nav a:hover { color: var(--amber); }
+    .foot__contact { display: grid; gap: 1rem; font-size: var(--step--1); color: color-mix(in oklch, var(--canvas) 82%, transparent); }
+    .foot__contact a:hover { color: var(--amber); }
+    .foot__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem; margin-top: 1.6rem; font-size: var(--step--1); color: color-mix(in oklch, var(--canvas) 54%, transparent); }
+    .foot__demo { color: color-mix(in oklch, var(--canvas) 44%, var(--amber)); }
+    @media (max-width: 720px) { .foot__grid { grid-template-columns: 1fr; gap: 1.8rem; } }
+
+    /* ===================== REVEAL ===================== */
+    .js-reveal [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .js-reveal [data-reveal].is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .js-reveal [data-reveal] { opacity: 1; transform: none; transition: none; } }
+  </style>
+</Layout>
