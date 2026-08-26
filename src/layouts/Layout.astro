@@ -1,9 +1,6 @@
 ---
 import "../styles/global.css";
 const { title = "Manada · Clínica Veterinaria en Esplugues", description = "Clínica veterinaria de barrio en Esplugues de Llobregat. Medicina, cirugía y urgencias 24 h para perros, gatos y exóticos. Como en casa, con quirófano. Pide cita." } = Astro.props;
-const favicon = "data:image/svg+xml," + encodeURIComponent(
-  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23402a1d'/><circle cx='11' cy='13' r='2.2' fill='%23e8a64a'/><circle cx='21' cy='13' r='2.2' fill='%23e8a64a'/><circle cx='8' cy='19' r='1.9' fill='%23e8a64a'/><circle cx='24' cy='19' r='1.9' fill='%23e8a64a'/><path d='M16 17c4 0 6 3 6 5.5S19 25 16 25s-6 0-6-2.5S12 17 16 17z' fill='%23e8a64a'/></svg>`
-);
 ---
 <!doctype html>
 <html lang="es">
@@ -15,7 +12,10 @@ const favicon = "data:image/svg+xml," + encodeURIComponent(
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <link rel="icon" href={favicon} />
+    <meta property="og:image" content="https://charcoles-hub.github.io/demo-veterinaria-manada/img/og.jpg" />
+    <meta property="og:url" content="https://charcoles-hub.github.io/demo-veterinaria-manada/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.svg`.replace("//","/")} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

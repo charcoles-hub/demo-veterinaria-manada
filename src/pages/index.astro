@@ -1,9 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const HERO = "https://images.unsplash.com/photo-1770836037793-95bdbf190f71";
-const TEAM = "https://images.unsplash.com/photo-1588950538967-ca7f8599c669";
-const img = (b: string, w: number, q = 72) => `${b}?auto=format&fit=crop&w=${w}&q=${q}`;
+const asset = (p: string) => `${import.meta.env.BASE_URL}/${p}`.replace("//", "/");
 
 const servicios = [
   { n: "01", name: "Consulta y diagnóstico", meta: "perros · gatos · exóticos", desc: "Revisión completa sin prisas. Salimos con un diagnóstico claro y un plan, no con más dudas." },
@@ -22,9 +20,9 @@ const puntos = [
 ];
 
 const opiniones = [
-  { q: "Mi gato llegó fatal un domingo a las tres de la madrugada y nos atendieron como si fuera horario de oficina. Le salvaron la vida.", a: "Laura B.", c: "con Mishi" },
-  { q: "Te explican todo, te dan el precio antes y no te cuelan pruebas que no hacen falta. Voy con los dos perros desde hace años.", a: "Sergi T.", c: "con Olho y Nala" },
-  { q: "Trato de diez con mi conejo, que no en todas las clínicas saben llevar a los exóticos. Aquí sí.", a: "Marta R.", c: "con Trufa" },
+  { q: "Mi gato llegó fatal un domingo a las tres de la madrugada y nos atendieron como si fuera horario de oficina. Le salvaron la vida.", a: "Laura B.", i: "L", t: "hace 1 semana", c: "con Mishi" },
+  { q: "Te explican todo, te dan el precio antes y no te cuelan pruebas que no hacen falta. Voy con los dos perros desde hace años.", a: "Sergi T.", i: "S", t: "hace 1 mes", c: "con Olho y Nala" },
+  { q: "Trato de diez con mi conejo, que no en todas las clínicas saben llevar a los exóticos. Aquí sí.", a: "Marta R.", i: "M", t: "hace 2 meses", c: "con Trufa" },
 ];
 ---
 
@@ -57,7 +55,7 @@ const opiniones = [
           <p class="hero__lede">Medicina, cirugía y urgencias 24 h para perros, gatos y los menos comunes. La consulta de barrio donde te explican qué le pasa a tu animal y cuánto cuesta, sin letra pequeña.</p>
           <div class="hero__actions">
             <a class="btn btn--solid" href="#cita">Pedir cita</a>
-            <a class="btn btn--ghost" href="tel:+34930000000"><span class="dot dot--live" aria-hidden="true"></span> Urgencias 24 h</a>
+            <a class="btn btn--ghost" href="tel:+34634782155"><span class="dot dot--live" aria-hidden="true"></span> Urgencias 24 h</a>
           </div>
           <dl class="hero__facts">
             <div><dt>Urgencias</dt><dd>24 h · 365 días</dd></div>
@@ -67,9 +65,7 @@ const opiniones = [
         </div>
       </div>
       <figure class="hero__media">
-        <img src={img(HERO, 1100, 74)}
-          srcset={`${img(HERO, 800, 72)} 800w, ${img(HERO, 1200, 74)} 1200w`}
-          sizes="(max-width: 900px) 100vw, 46vw"
+        <img src={asset("img/exploracion.webp")} width="1200" height="1800"
           alt="Un teckel atento sobre la mesa de exploración mientras el veterinario lo ausculta detrás, en luz cálida." fetchpriority="high" />
       </figure>
     </section>
@@ -89,14 +85,14 @@ const opiniones = [
           <h2 id="serv-h" class="sec-head__title">Una clínica completa,<br />no una sala de espera.</h2>
         </header>
 
-        <a class="urg" id="urgencias" href="tel:+34930000000" data-reveal>
+        <a class="urg" id="urgencias" href="tel:+34634782155" data-reveal>
           <div class="urg__pulse" aria-hidden="true"><span></span><span></span><span></span></div>
           <div class="urg__copy">
             <p class="urg__kicker">Urgencias veterinarias</p>
             <p class="urg__title">¿Una urgencia? Estamos despiertos.</p>
             <p class="urg__sub">24 horas, 365 días. No esperes a mañana: llama y ven.</p>
           </div>
-          <span class="urg__phone">93 000 00 00 <span aria-hidden="true">→</span></span>
+          <span class="urg__phone">634 78 21 55 <span aria-hidden="true">→</span></span>
         </a>
 
         <ul class="serv__grid">
@@ -123,9 +119,7 @@ const opiniones = [
           </ul>
         </div>
         <figure class="team__media" data-reveal>
-          <img src={img(TEAM, 900, 74)}
-            srcset={`${img(TEAM, 600, 72)} 600w, ${img(TEAM, 1000, 74)} 1000w`}
-            sizes="(max-width: 860px) 90vw, 40vw"
+          <img src={asset("img/equipo.webp")} width="900" height="1603"
             alt="Una veterinaria de Manada sostiene en brazos a un cachorro dorado, los dos tranquilos." loading="lazy" />
           <figcaption class="team__cap"><span class="dot" aria-hidden="true"></span> Dra. Laia Ferrer · col. nº 2207</figcaption>
         </figure>
@@ -138,12 +132,21 @@ const opiniones = [
         <header class="sec-head" data-reveal>
           <p class="eyebrow">Opiniones</p>
           <h2 id="revs-h" class="sec-head__title">Lo que cuentan sus familias.</h2>
+          <p class="revs__score"><span class="revs__stars" aria-hidden="true">★★★★★</span> 4,9 · 240 reseñas en Google</p>
         </header>
         <div class="revs__grid">
           {opiniones.map((o) => (
             <figure class="rev" data-reveal>
+              <div class="rev__head">
+                <span class="rev__avatar" aria-hidden="true">{o.i}</span>
+                <div>
+                  <span class="rev__a">{o.a}</span>
+                  <span class="rev__meta">{o.t}</span>
+                </div>
+              </div>
+              <div class="rev__stars" aria-label="5 de 5 estrellas">★★★★★</div>
               <blockquote class="rev__q">{o.q}</blockquote>
-              <figcaption class="rev__by"><span class="rev__a">{o.a}</span><span class="rev__c">{o.c}</span></figcaption>
+              <figcaption class="rev__by"><span class="rev__c">{o.c}</span></figcaption>
             </figure>
           ))}
         </div>
@@ -156,13 +159,17 @@ const opiniones = [
         <div class="cita__intro" data-reveal>
           <p class="eyebrow eyebrow--light">Pedir cita</p>
           <h2 id="cita-h" class="cita__title">Cuéntanos qué le pasa.</h2>
-          <p class="cita__lede">Déjanos tus datos y te llamamos hoy mismo para darte hora. Si es una urgencia, no escribas: <a href="tel:+34930000000">llámanos al 93 000 00 00</a>.</p>
+          <p class="cita__lede">Déjanos tus datos y te llamamos hoy mismo para darte hora. Si es una urgencia, no escribas: <a href="tel:+34634782155">llámanos al 634 78 21 55</a>.</p>
           <ul class="cita__info">
-            <li><span>Dónde</span> Carrer de Laureà Miró 88, Esplugues de Llobregat</li>
+            <li><span>Dónde</span> Carrer de Laureà Miró 88, Esplugues de Llobregat · Tram La Sardana, a 5 minutos</li>
             <li><span>Horario</span> Lun–Vie 9–21 h · Sáb 10–14 h</li>
             <li><span>Urgencias</span> 24 h, todos los días del año</li>
-            <li><span>Teléfono</span> <a href="tel:+34930000000">93 000 00 00</a></li>
+            <li><span>Teléfono</span> <span><a href="tel:+34634782155">634 78 21 55</a> · <a href="https://wa.me/34634782155">WhatsApp</a></span></li>
           </ul>
+          <a class="mapa" href="https://www.google.com/maps/search/?api=1&query=Carrer+de+Laure%C3%A0+Mir%C3%B3+88+Esplugues+de+Llobregat" target="_blank" rel="noopener">
+            <img src={asset("img/mapa.webp")} alt="Mapa de Esplugues con la clínica señalada" width="761" height="520" loading="lazy" decoding="async" />
+            <span class="mapa__cta">Cómo llegar →</span>
+          </a>
         </div>
 
         <form class="form" data-reveal novalidate>
@@ -202,6 +209,12 @@ const opiniones = [
     </section>
   </main>
 
+  <nav class="dock" aria-label="Contacto rápido">
+    <a href="tel:+34634782155"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .56 3.5 1 1 0 0 1-.25 1z"/></svg>Llamar</a>
+    <a href="https://wa.me/34634782155"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1a13 13 0 0 1-5-3.3 9.4 9.4 0 0 1-2-3.2c-.2-.7 0-1.3.4-1.7l.6-.6c.2-.2.5-.2.7.1l1 1.7c.1.3.1.5 0 .7l-.4.5c-.2.2-.2.4-.1.6a7.6 7.6 0 0 0 3.4 3c.3.1.5.1.7-.1l.6-.7c.2-.2.4-.2.7-.1l1.7.9c.3.1.4.4.3.7z"/></svg>WhatsApp</a>
+    <a href="#cita" class="dock__cta">Pedir cita</a>
+  </nav>
+
   <footer class="foot">
     <div class="wrap foot__grid">
       <div class="foot__brand">
@@ -219,7 +232,7 @@ const opiniones = [
       </nav>
       <div class="foot__contact">
         <p>Carrer de Laureà Miró 88<br />08950 Esplugues de Llobregat</p>
-        <p><a href="tel:+34930000000">93 000 00 00</a><br /><a href="mailto:hola@manadavet.es">hola@manadavet.es</a></p>
+        <p><a href="tel:+34634782155">634 78 21 55</a><br /><a href="mailto:hola@manadavet.es">hola@manadavet.es</a></p>
       </div>
     </div>
     <div class="wrap foot__legal">
@@ -277,11 +290,16 @@ const opiniones = [
     .nav__row { display: flex; align-items: center; gap: 2rem; padding-block: 1rem; }
     .nav.is-stuck { background: color-mix(in oklch, var(--canvas) 90%, transparent); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
     .nav__links { display: flex; gap: 1.5rem; margin-inline: auto; font-size: var(--step--1); font-weight: 700; }
-    .nav__links a { color: var(--canvas); opacity: 0.95; position: relative; padding-block: 0.3rem; }
-    .nav.is-stuck .nav__links a { color: var(--ink); }
+    .nav__links a { color: var(--canvas); opacity: 0.95; position: relative; padding-block: 0.3rem; text-shadow: 0 1px 10px rgba(20, 12, 6, 0.55); }
+    .nav.is-stuck .nav__links a { color: var(--ink); text-shadow: none; }
     .nav__links a:not(.nav__urg)::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease-out); }
     .nav__links a:hover::after, .nav__links a:focus-visible::after { transform: scaleX(1); }
-    .nav__urg { color: var(--amber) !important; opacity: 1 !important; }
+    .nav__urg {
+      color: var(--amber) !important; opacity: 1 !important;
+      background: color-mix(in oklch, var(--espresso) 82%, transparent);
+      padding: 0.3rem 0.85rem; border-radius: 999px;
+    }
+    .nav.is-stuck .nav__urg { background: var(--espresso); }
 
     .brand { display: inline-flex; align-items: center; gap: 0.55rem; color: var(--canvas); }
     .nav.is-stuck .brand { color: var(--ink); }
@@ -330,10 +348,19 @@ const opiniones = [
     .hero__media { position: relative; }
     .hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
     @media (max-width: 820px) {
-      .hero { grid-template-columns: 1fr; min-height: 0; margin-top: -68px; }
-      .hero__media { order: -1; height: 56vw; max-height: 460px; }
-      .hero__media img { position: static; }
-      .hero__panel { padding-top: 2.5rem; }
+      /* la foto pasa a ser el fondo del primer pantallazo */
+      .hero { grid-template-columns: 1fr; min-height: 0; margin-top: -68px; position: relative; }
+      .hero__media { position: absolute; inset: 0; z-index: 0; }
+      .hero__media::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(178deg,
+          color-mix(in oklch, var(--espresso) 46%, transparent) 0%,
+          color-mix(in oklch, var(--espresso) 72%, transparent) 44%,
+          color-mix(in oklch, var(--espresso) 94%, transparent) 78%,
+          var(--espresso) 100%);
+      }
+      .hero__media img { object-position: 50% 24%; }
+      .hero__panel { background: transparent; position: relative; z-index: 2; padding-top: 6.5rem; }
       .hero__copy { margin-left: 0; }
     }
 
@@ -412,13 +439,32 @@ const opiniones = [
 
     /* ===================== OPINIONES ===================== */
     .revs { padding-block: clamp(4rem, 11vh, 7.5rem); }
+    .revs__score { margin-top: 1.1rem; font-weight: 800; color: var(--ink); display: flex; align-items: center; gap: 0.6rem; }
+    .revs__stars, .rev__stars { color: #f4b400; letter-spacing: 2px; font-size: 0.95rem; }
     .revs__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: clamp(1.1rem, 2.5vw, 1.8rem); }
-    .rev { background: var(--canvas); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 3vw, 2.1rem); display: flex; flex-direction: column; gap: 1.4rem; }
-    .rev__q { font-size: var(--step-1); line-height: 1.5; }
+    .rev { background: var(--canvas); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 1.9rem); display: flex; flex-direction: column; gap: 0.7rem; }
+    .rev__head { display: flex; align-items: center; gap: 0.75rem; }
+    .rev__head > div { display: flex; flex-direction: column; }
+    .rev__avatar {
+      width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--espresso-2); color: var(--amber); font-weight: 800; flex: none;
+    }
+    .rev__meta { font-size: var(--step--1); color: var(--muted); }
+    .rev__q { font-size: var(--step-0); line-height: 1.55; }
     .rev__q::before { content: "“"; font-family: var(--display); color: var(--amber-deep); margin-right: 0.1rem; }
-    .rev__by { display: flex; align-items: baseline; gap: 0.6rem; }
+    .rev__by { display: flex; align-items: baseline; gap: 0.6rem; margin-top: auto; }
     .rev__a { font-weight: 800; }
     .rev__c { font-size: var(--step--1); color: var(--olive); font-weight: 700; }
+    @media (max-width: 760px) {
+      .revs__grid {
+        grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%;
+        overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px;
+        margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter);
+        scrollbar-width: none;
+      }
+      .revs__grid::-webkit-scrollbar { display: none; }
+      .rev { scroll-snap-align: center; }
+    }
 
     /* ===================== CITA ===================== */
     .cita { background: radial-gradient(110% 130% at 100% 0%, var(--espresso-2), var(--espresso) 58%); color: var(--canvas); padding-block: clamp(4rem, 11vh, 7.5rem); }
@@ -430,6 +476,19 @@ const opiniones = [
     .cita__info li { display: grid; grid-template-columns: 6rem 1fr; gap: 1rem; padding-bottom: 0.85rem; border-bottom: 1px solid color-mix(in oklch, var(--canvas) 18%, transparent); }
     .cita__info span { color: var(--amber); font-size: var(--step--1); font-weight: 700; }
     .cita__info a:hover { color: var(--amber); }
+    .cita__info li > span + span { color: var(--canvas); font-size: var(--step-0); font-weight: 400; }
+    .cita__info a { border-bottom: 1px solid color-mix(in oklch, var(--amber) 50%, transparent); }
+    .mapa {
+      display: block; position: relative; margin-top: 1.8rem;
+      border: 1px solid color-mix(in oklch, var(--canvas) 20%, transparent);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .mapa img { display: block; width: 100%; height: 220px; object-fit: cover; }
+    .mapa__cta {
+      position: absolute; right: 14px; bottom: 14px; background: var(--amber); color: var(--espresso);
+      font-size: var(--step--1); font-weight: 800; letter-spacing: 0.02em; padding: 0.55rem 0.95rem; border-radius: 999px;
+    }
+    .mapa:hover .mapa__cta { background: var(--amber-deep); color: var(--canvas); }
 
     .form { background: var(--canvas); color: var(--ink); padding: clamp(1.6rem, 3.5vw, 2.4rem); border-radius: var(--radius); display: grid; gap: 1rem; box-shadow: 0 26px 60px -30px #000; }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -456,9 +515,43 @@ const opiniones = [
     .foot__demo { color: color-mix(in oklch, var(--canvas) 44%, var(--amber)); }
     @media (max-width: 720px) { .foot__grid { grid-template-columns: 1fr; gap: 1.8rem; } }
 
+    /* ===================== BARRA FIJA DE CONTACTO (solo móvil) ===================== */
+    .dock { display: none; }
+    @media (max-width: 760px) {
+      .dock {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-overlay);
+        display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 1px;
+        background: var(--line-strong); border-top: 1px solid var(--line);
+        padding-bottom: env(safe-area-inset-bottom);
+        font-size: var(--step--1); font-weight: 700;
+      }
+      .dock a {
+        background: var(--canvas); color: var(--ink); min-height: 56px;
+        display: flex; align-items: center; justify-content: center; gap: 7px;
+      }
+      .dock svg { width: 17px; height: 17px; fill: var(--amber-deep); }
+      .dock a.dock__cta { background: var(--espresso); color: var(--amber); }
+      :global(body) { padding-bottom: 56px; }
+    }
+
+    /* ===================== ACABADO ===================== */
+    .btn { transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out), border-color 0.25s var(--ease-out), transform 0.5s linear(0, 0.55 18%, 1.04 42%, 0.98 60%, 1); }
+
     /* ===================== REVEAL ===================== */
     .js-reveal [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
     .js-reveal [data-reveal].is-in { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) { .js-reveal [data-reveal] { opacity: 1; transform: none; transition: none; } }
+    /* revelado ligado al scroll sin JS donde el navegador lo soporta */
+    @supports (animation-timeline: view()) {
+      @media (prefers-reduced-motion: no-preference) {
+        [data-reveal], .js-reveal [data-reveal] {
+          opacity: 1; transform: none; transition: none;
+          animation: reveal linear both;
+          animation-timeline: view();
+          animation-range: entry 8% cover 26%;
+        }
+      }
+    }
+    @keyframes reveal { from { opacity: 0; transform: translateY(18px); } }
   </style>
 </Layout>
